@@ -11,7 +11,9 @@
 
 class Family < ApplicationRecord
 
-  has_and_belongs_to_many :users
   belongs_to :founder
+
+  has_many :relationships
+  has_many :users, through: :relationships
 
 end

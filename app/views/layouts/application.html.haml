@@ -8,4 +8,15 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    %p.notice= notice
+    %p.alert= alert
+
+    %header
+      %h1=link_to 'Secret Santa', root_path
+
+      - if user_signed_in?
+        .user-controls
+          = link_to 'edit profile', edit_user_path(current_user)
+          = link_to 'log out', destroy_user_session_path, method: :delete
+
+    %section= yield

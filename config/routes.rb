@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
   unauthenticated do
-    root to: 'devise/sessions#new'
+    devise_scope :user do
+      root to: 'devise/sessions#new'
+    end
   end
 
   authenticated do
-    root to: 'user#show'
+    root to: 'dashboard#show'
   end
 
   devise_for :users
 
-  resources :users do
-    resources :families
-  end
+  resources :users, except: :index
+  resources :families, except: :index
+  resources :relationships, only: [:new, :create, :destroy]
 end

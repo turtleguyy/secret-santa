@@ -10,9 +10,6 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    unless params[:id]
-      @user = current_user
-    end
   end
 
   # GET /users/new

@@ -1,0 +1,10 @@
+= simple_form_for @relationship do |f|
+  - if @relationship.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@relationship.errors.count, "error")} prohibited this relationship from being saved:"
+      %ul
+        - @relationship.errors.full_messages.each do |message|
+          %li= message
+
+  .actions
+    = f.submit 'Save'
