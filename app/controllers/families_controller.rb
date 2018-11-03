@@ -1,5 +1,7 @@
 class FamiliesController < ApplicationController
+
   before_action :set_family, only: [:show, :edit, :update, :destroy]
+  after_action :set_code, only: [:create]
 
   # GET /families
   # GET /families.json
@@ -25,14 +27,13 @@ class FamiliesController < ApplicationController
   # POST /families.json
   def create
     @family = Family.new(family_params)
-    @family.founder = current_user
+    @family.user = current_user
 
     respond_to do |format|
       if @family.save
-        current_user.family = @family
-        current_user.save
+        Relationship.create(user: current_user, family: @family)
 
-        format.html { redirect_to @family, notice: 'Family was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Congrats! You just started a family.' }
         format.json { render :show, status: :created, location: @family }
       else
         format.html { render :new }
@@ -46,7 +47,7 @@ class FamiliesController < ApplicationController
   def update
     respond_to do |format|
       if @family.update(family_params)
-        format.html { redirect_to @family, notice: 'Family was successfully updated.' }
+        format.html { redirect_to dashboard_path, notice: 'Family info updated.' }
         format.json { render :show, status: :ok, location: @family }
       else
         format.html { render :edit }
@@ -59,13 +60,20 @@ class FamiliesController < ApplicationController
   # DELETE /families/1.json
   def destroy
     @family.destroy
+
     respond_to do |format|
-      format.html { redirect_to families_url, notice: 'Family was successfully destroyed.' }
+      format.html { redirect_to dashboard_path, notice: 'You successfully tore your family apart.' }
       format.json { head :no_content }
     end
   end
 
   private
+
+    def set_code
+      @family.code = "#{family_params[:name].parameterize}-#{@family.id}"
+      @family.save
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_family
       @family = Family.find(params[:id])
@@ -73,6 +81,7 @@ class FamiliesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def family_params
-      params.fetch(:family, {})
+      params.require(:family).permit(:name, :event_date)
     end
+
 end

@@ -3,7 +3,8 @@ class CreateFamilies < ActiveRecord::Migration[5.2]
     create_table :families do |t|
       t.string :name
       t.string :code
-      t.integer :founder_id
+      t.date :event_date
+      t.integer :user_id
 
       t.timestamps
     end

@@ -1,9 +1,6 @@
-%h1= "Welcome, #{current_user.email}!"
+%h1= "Welcome, #{current_user.name}!"
 
 = link_to 'Create a Family', new_family_path
 = link_to 'Join a Family', new_relationship_path
 
-%h2 Families
-- current_user.families.each do |family|
-  %article
-    %h3= family.name
+= render current_user.families

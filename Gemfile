@@ -35,7 +35,7 @@ gem 'devise'
 gem 'hpricot'
 gem 'ruby_parser'
 gem 'haml-rails'
-gem 'simple_form'
+gem 'formtastic'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

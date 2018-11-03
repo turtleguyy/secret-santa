@@ -24,11 +24,12 @@ class RelationshipsController < ApplicationController
   # POST /relationships
   # POST /relationships.json
   def create
-    @relationship = Relationship.new(relationship_params)
+    family = Family.find_by code: relationship_params[:invitation_code]
+    @relationship = Relationship.new(user: current_user, family: family)
 
     respond_to do |format|
       if @relationship.save
-        format.html { redirect_to @relationship, notice: 'Relationship was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Somehow, you got in. Welcome to the family.' }
         format.json { render :show, status: :created, location: @relationship }
       else
         format.html { render :new }
@@ -69,6 +70,6 @@ class RelationshipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def relationship_params
-      params.fetch(:relationship, {})
+      params.require(:relationship).permit(:invitation_code)
     end
 end

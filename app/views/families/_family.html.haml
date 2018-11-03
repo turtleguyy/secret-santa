@@ -1,0 +1,23 @@
+%article
+  %h3
+    The
+    = family.name
+    Family
+    - if current_user == family.user
+      %span= link_to '(edit)', edit_family_path(family)
+
+  %dl.code
+    %dt Invitation Code
+    %dd= family.code
+
+  %dl.members
+    %dt Members
+    %dd= family.users.collect(&:name).join(', ')
+
+  %dl.event-date
+    %dt Event date
+    %dd= family.event_date.strftime("%B %-d, %Y")
+
+  %dl.assignment
+    %dt You're buying for...
+    %dd Nobody yet! Still gathering family members.

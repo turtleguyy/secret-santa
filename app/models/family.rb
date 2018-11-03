@@ -11,9 +11,9 @@
 
 class Family < ApplicationRecord
 
-  belongs_to :founder
+  belongs_to :user
 
-  has_many :relationships
+  has_many :relationships, dependent: :destroy
   has_many :users, through: :relationships
 
 end

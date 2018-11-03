@@ -1,4 +1,4 @@
-= simple_form_for family do |f|
+= semantic_form_for family do |f|
   - if family.errors.any?
     #error_explanation
       %h2
@@ -8,8 +8,12 @@
         - family.errors.full_messages.each do |message|
           %li= message
 
-  .inputs
+  = f.inputs do
     = f.input :name
+    = f.input :event_date, as: :string, label: 'When is your event?', input_html: { type: 'date' }
 
-  .actions
-    = f.submit
+  = f.actions do
+    - if family.id
+      %li
+        = link_to 'Delete', family_path(family), method: :delete
+    = f.action :submit

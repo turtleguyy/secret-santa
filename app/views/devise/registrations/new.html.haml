@@ -1,0 +1,17 @@
+= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  - if resource.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(resource.errors.count, "error")}"
+      %ul
+        - resource.errors.full_messages.each do |message|
+          %li= message
+
+  = f.inputs do
+    = f.input :email, required: true, autofocus: true, input_html: { autocomplete: 'email' }
+    = f.input :password, required: true, input_html: { autocomplete: 'new-password' }
+    = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
+
+  = f.actions do
+    = f.action :submit, label: 'Sign up'
+
+= render 'devise/shared/links'

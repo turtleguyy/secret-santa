@@ -1,5 +1,7 @@
-%h1 Editing Family
+%h1
+  Edit the
+  = @family.name
+  Family
+
+= link_to 'Back', dashboard_path
 = render 'form', family: @family
-= link_to 'Show', @family
-|
-= link_to 'Back', families_path

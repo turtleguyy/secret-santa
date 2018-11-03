@@ -17,12 +17,22 @@
 
 class User < ApplicationRecord
 
-  has_many :relationships
+  has_many :relationships, dependent: :destroy
   has_many :families, through: :relationships
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def name
+    if first_name.present?
+      first_name
+    elsif last_name.present?
+      last_name
+    else
+      email
+    end
+  end
 
 end

@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   resources :users, except: :index
   resources :families, except: :index
   resources :relationships, only: [:new, :create, :destroy]
+
+  get 'dashboard', to: 'dashboard#show'
 end

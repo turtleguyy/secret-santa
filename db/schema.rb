@@ -15,7 +15,8 @@ ActiveRecord::Schema.define(version: 2018_11_02_062908) do
   create_table "families", force: :cascade do |t|
     t.string "name"
     t.string "code"
-    t.integer "founder_id"
+    t.date "event_date"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
