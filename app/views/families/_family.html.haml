@@ -1,8 +1,9 @@
 %article
   %h3
-    The
-    = family.name
-    Family
+    = link_to family do
+      The
+      = family.name
+      Family
     - if current_user == family.user
       %span= link_to '(edit)', edit_family_path(family)
 
@@ -10,14 +11,17 @@
     %dt Invitation Code
     %dd= family.code
 
-  %dl.members
-    %dt Members
-    %dd= family.users.collect(&:name).join(', ')
+  - if family.event_date.present?
+    %dl.event-date
+      %dt Event Date
+      %dd= family.event_date.strftime("%B %-d, %Y")
 
-  %dl.event-date
-    %dt Event date
-    %dd= family.event_date.strftime("%B %-d, %Y")
+  - if family.has_members?
+    %dl.members
+      %dt Members
+      %dd= family.members.collect(&:display_name).join(', ')
 
-  %dl.assignment
-    %dt You're buying for...
-    %dd Nobody yet! Still gathering family members.
+  - if family.assignment_for current_user
+    %dl.members
+      %dt You're Buying For...
+      %dd= family.assignment_for(current_user).display_name

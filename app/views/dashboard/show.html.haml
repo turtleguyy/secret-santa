@@ -1,6 +1,6 @@
-%h1= "Welcome, #{current_user.name}!"
+%h1= "Welcome, #{current_user.display_name}!"
 
 = link_to 'Create a Family', new_family_path
-= link_to 'Join a Family', new_relationship_path
+= link_to 'Join a Family', new_member_path
 
 = render current_user.families

@@ -1,1 +1,16 @@
 = render @family, family: @family
+
+- if current_user == @family.user && @family.unassigned_members.count > 0
+  %h3 Add a Family Member
+
+  = semantic_form_for Member.new do |f|
+    = f.inputs do
+      = f.input :name
+      = f.input :family_id, as: :hidden, input_html: { value: @family.id }
+
+    = f.actions do
+      = f.action :submit, label: 'Save'
+
+  %h3 All Done?
+  %p Are you finished adding family members? Ready to generate assignments?
+  = link_to "Yeah!", family_assign_path(@family)

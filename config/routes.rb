@@ -12,8 +12,15 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, except: :index
-  resources :families, except: :index
-  resources :relationships, only: [:new, :create, :destroy]
+  resources :families, except: :index do
+    get 'assign'
+    get 'new_member'
+    patch 'join'
+  end
+
+  resources :members, only: [:new, :create, :destroy]
 
   get 'dashboard', to: 'dashboard#show'
+
+  post 'family_members', to: 'members#get_members_by_family_code'
 end

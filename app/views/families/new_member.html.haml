@@ -1,0 +1,11 @@
+%h1
+  Join the
+  = @family.name
+  Family
+
+= semantic_form_for @family, url: family_join_path(@family) do |f|
+  = f.inputs do
+    = f.input :member, label: 'Who are you?', as: :select, include_blank: false, collection: @family.unclaimed_members, hint: 'There is no way to change who are after joining, so be sure to choose the correct person.'
+
+  = f.actions do
+    = f.action :submit, label: 'Join the Family'

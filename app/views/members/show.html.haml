@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @member.name
+%p
+  %b User:
+  = @member.user_id
+%p
+  %b Family:
+  = @member.family_id
+
+= link_to 'Edit', edit_member_path(@member)
+\|
+= link_to 'Back', members_path

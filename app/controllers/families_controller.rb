@@ -31,9 +31,9 @@ class FamiliesController < ApplicationController
 
     respond_to do |format|
       if @family.save
-        Relationship.create(user: current_user, family: @family)
+        Member.create(user: current_user, family: @family)
 
-        format.html { redirect_to dashboard_path, notice: 'Congrats! You just started a family.' }
+        format.html { redirect_to @family, notice: 'Congrats! You just started a family.' }
         format.json { render :show, status: :created, location: @family }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class FamiliesController < ApplicationController
   def update
     respond_to do |format|
       if @family.update(family_params)
-        format.html { redirect_to dashboard_path, notice: 'Family info updated.' }
+        format.html { redirect_to @family, notice: 'Family info updated.' }
         format.json { render :show, status: :ok, location: @family }
       else
         format.html { render :edit }
@@ -67,10 +67,42 @@ class FamiliesController < ApplicationController
     end
   end
 
+  def assign
+    @family = Family.find(params[:family_id])
+    @family.members.each do |member|
+      next if member.assignment != nil
+
+      member.member = get_random_member member.id
+      member.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to dashboard_path, notice: 'Yeah! Everyone is Santa now!' }
+      format.json { render :show, status: :ok, location: @family }
+    end
+  end
+
+  def join
+    family = Family.find params[:family_id]
+    member = Member.find params[:family][:member]
+    respond_to do |format|
+      if member.update_attributes(user: current_user)
+        format.html { redirect_to dashboard_path, notice: 'Welcome to the family!' }
+      else
+        format.html { redirect_to family_new_member_path, alert: 'Woes! Maybe try again?' }
+      end
+    end
+  end
+
+  def new_member
+    @family = Family.find params[:family_id]
+  end
+
   private
 
     def set_code
-      @family.code = "#{family_params[:name].parameterize}-#{@family.id}"
+      family_name  = family_params[:name].parameterize
+      @family.code = "#{family_name}-#{@family.id}-#{rand(99999)}"
       @family.save
     end
 
@@ -82,6 +114,15 @@ class FamiliesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def family_params
       params.require(:family).permit(:name, :event_date)
+    end
+
+    def get_random_member(id)
+      member = @family.unassigned_members.where.not(id: id).all.shuffle.first
+      if member.assignment.try(:id) == id
+        get_random_member id
+      else
+        member
+      end
     end
 
 end
