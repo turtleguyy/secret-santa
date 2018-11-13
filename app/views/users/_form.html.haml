@@ -7,8 +7,8 @@
           %li= message
 
   = f.inputs do
-    = f.input :name
-    = f.input :username, required: true
+    = f.input :name, input_html: {class: 'form-input'}
+    = f.input :username, required: true, input_html: {class: 'form-input'}
 
   = f.actions do
     = f.action :submit, label: 'Save'

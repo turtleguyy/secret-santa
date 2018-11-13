@@ -9,8 +9,8 @@
           %li= message
 
   = f.inputs do
-    = f.input :name
-    = f.input :event_date, as: :string, label: 'When is your event?', input_html: { type: 'date' }
+    = f.input :name, input_html: {class: 'form-input'}
+    = f.input :event_date, as: :string, label: 'When is your event?', input_html: { type: 'date' }, input_html: {class: 'form-input'}
 
   = f.actions do
     - if family.id

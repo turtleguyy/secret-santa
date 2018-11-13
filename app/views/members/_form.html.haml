@@ -1,6 +1,6 @@
 = semantic_form_for @member, url: family_members_path do |f|
   = f.inputs do
-    = f.input :invitation_code
+    = f.input :invitation_code, input_html: {class: 'form-input'}
 
   = f.actions do
     = f.action :submit, label: 'Join Family'

@@ -1,0 +1,28 @@
+@import 'colors';
+
+button, input[type="submit"], a.button {
+  display: inline-block;
+  text-align: center;
+  padding: 15px 30px;
+  cursor: pointer;
+  height: 40px;
+  line-height: 10px;
+  font-size: 22px;
+  width: 200px;
+  text-decoration: none;
+  // background-color: $white; I want to understand why many of the other styles seem to break down when this is applies
+  background-color: $christmas-green;
+  color: $white;
+  margin: 30px 20px; /* Increased margin since the outline expands outside the element */
+  outline: 5px solid $christmas-green;
+  transition: outline 0.3s $my-cubic-bezier, background-color 0.3s $my-cubic-bezier;
+  &:hover {
+    background-color: $lighter-christmas-green;
+    outline: 10px solid $lighter-christmas-green;
+  }
+}
+
+a.button {
+  line-height: 40px;
+  border: solid 1px $white;
+}

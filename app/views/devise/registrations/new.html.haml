@@ -7,9 +7,9 @@
           %li= message
 
   = f.inputs do
-    = f.input :username, required: true, autofocus: true, input_html: { autocomplete: 'username' }
-    = f.input :password, required: true, input_html: { autocomplete: 'new-password' }
-    = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
+    = f.input :username, required: true, autofocus: true, input_html: { autocomplete: 'username', class: 'form-input' }
+    = f.input :password, required: true, input_html: { autocomplete: 'new-password', class: 'form-input' }
+    = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password', class: 'form-input' }
 
   = f.actions do
     = f.action :submit, label: 'Sign up'
