@@ -1,17 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=Satisfy')
 
-header h1
-  padding-bottom: 20px
+header
+  padding: 0 20px
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+  background: $white
+  box-sizing: border-box
+  color: $red
 
-  &, a, a:visited
-    color: $white
-    font-size: 40px
-    font-family: 'Satisfy', cursive
-    text-align: center
+  a
+    margin: 0
+    padding: 0
+    background: none
+    color: $red
+    font-size: 14px
     text-decoration: none
-    margin: 20px 0px
-    background: none
+    &:hover
+      background: none
+      outline: none
 
-  a:hover
-    background: none
-    outline: none
+  h1
+    margin: 0
+
+    a
+      font-family: 'Satisfy', cursive
+      font-size: 40px
+
+  .user-controls a:not(:last-of-type)
+    margin-right: 10px
