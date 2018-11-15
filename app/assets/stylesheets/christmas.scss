@@ -1,5 +1,3 @@
-@import 'colors';
-
 html,body {
 	height: 100%;
 	background-color: #b33;
@@ -46,7 +44,7 @@ html,body {
 		$size/2 $size/1.4, $size/2 $size/1.4,
 		// trunk
 		$size/2 $size/1.25, $size/2 $size/1.25;
-	
+
 	// snow -----
 	&:before {
 		content: '';
@@ -72,4 +70,3 @@ html,body {
 		}
 	}
 }
-
