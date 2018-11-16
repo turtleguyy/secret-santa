@@ -1,6 +1,7 @@
 %h1= "Welcome, #{current_user.display_name}!"
 
-= link_to 'Create a Family', new_family_path, class: 'button'
-= link_to 'Join a Family', new_member_path, class: 'button'
+.button-group
+  = link_to 'Create a Family', new_family_path, class: 'button'
+  = link_to 'Join a Family', new_member_path, class: 'button'
 
 = render current_user.families
