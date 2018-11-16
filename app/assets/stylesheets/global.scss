@@ -21,11 +21,12 @@ input {
 }
 
 h1 {
-  color: $white;
+  color: transparentize($red, 0.2);
   font-size: 62px;
   font-family: 'Satisfy', cursive;
   text-align: center;
-  margin: 50px 0;
+  margin: 40px 0 20px;
+  text-shadow: 2px 2px 0 $white, -1px -1px 0 $white, 1px -1px 0 $white, 1px 1px 0 $white, -1px 1px 0 $white;
 }
 
 a {
