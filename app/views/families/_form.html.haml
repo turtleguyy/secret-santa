@@ -1,19 +1,10 @@
 = semantic_form_for family do |f|
-  - if family.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(family.errors.count, "error")
-        prohibited this family from being saved:
-      %ul
-        - family.errors.full_messages.each do |message|
-          %li= message
-
   = f.inputs do
-    = f.input :name, input_html: {class: 'form-input'}
-    = f.input :event_date, as: :string, label: 'When is your event?', input_html: { type: 'date' }, input_html: {class: 'form-input'}
+    = f.input :name, input_html: {class: 'form-input'}, required: true
+    = f.input :event_date, as: :date_picker, label: 'When is your event?', input_html: {class: 'form-input'}
 
   = f.actions do
-    - if family.id
-      %li
-        = link_to 'Delete', family_path(family), method: :delete
     = f.action :submit
+    - if family.id
+      %li.action
+        = link_to 'Delete', family_path(family), method: :delete, class: 'button', confirm: 'Are you sure? There’s no undoing this.'

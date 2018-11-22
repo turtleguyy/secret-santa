@@ -22,13 +22,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :rememberable, authentication_keys: [:username]
 
-  validates :username, uniqueness: true
+  validates :username, presence: true, uniqueness: true
 
   def display_name
     if name
       name
-    elsif members.count > 0
-      members.first.name
+    # elsif members.count > 0
+    #   members.first.name
     else
       username
     end

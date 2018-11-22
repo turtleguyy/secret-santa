@@ -1,3 +1,15 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  # $(#new_member).input!=blankspace
+
+  # form = $('#new_member')
+
+  # if form.input.value() == ''
+  #   return null
+
+  $('form').on 'submit', ->
+    valid = true
+    $inputs = $(this).find('.required input')
+    $inputs.each (index, input) ->
+      valid = false if valid and input.value == ""
+
+    return valid

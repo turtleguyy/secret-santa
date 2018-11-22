@@ -1,7 +1,13 @@
 %h1= "Welcome, #{current_user.display_name}!"
 
-.button-group
-  = link_to 'Create a Family', new_family_path, class: 'button'
-  = link_to 'Join a Family', new_member_path, class: 'button'
+- if current_user.families.size > 0
+  .small.button-group
+    = link_to 'New Family', new_family_path, class: 'button'
+    = link_to 'Join Family', new_member_path, class: 'button'
+
+- else
+  .button-group
+    = link_to 'Create a Family', new_family_path, class: 'button'
+    = link_to 'Join a Family', new_member_path, class: 'button'
 
 = render current_user.families

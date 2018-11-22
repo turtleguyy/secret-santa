@@ -36,7 +36,7 @@ class FamiliesController < ApplicationController
         format.html { redirect_to @family, notice: 'Congrats! You just started a family.' }
         format.json { render :show, status: :created, location: @family }
       else
-        format.html { render :new }
+        format.html { redirect_to new_family_path, alert: 'Whoops, something went wrong. Did you name your family?' }
         format.json { render json: @family.errors, status: :unprocessable_entity }
       end
     end
@@ -83,13 +83,14 @@ class FamiliesController < ApplicationController
   end
 
   def join
-    family = Family.find params[:family_id]
+    family = Family.find_by code: params[:family][:invitation_code]
     member = Member.find params[:family][:member]
+    
     respond_to do |format|
-      if member.update_attributes(user: current_user)
+      if family.present? && member.update_attributes(user: current_user)
         format.html { redirect_to dashboard_path, notice: 'Welcome to the family!' }
       else
-        format.html { redirect_to family_new_member_path, alert: 'Woes! Maybe try again?' }
+        format.html { redirect_to family_new_member_path, alert: 'Woes! Are you sure you have the right invitation code?' }
       end
     end
   end

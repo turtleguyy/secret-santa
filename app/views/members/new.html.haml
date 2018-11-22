@@ -1,5 +1,9 @@
+.breadcrumbs
+  = link_to dashboard_path, class: 'back' do
+    = fa_icon 'home', text: 'Home'
+  = fa_icon 'chevron-right'
+  Join
+
 %h1 Join a Family
 
 = render 'form'
-
-= link_to 'Back', dashboard_path

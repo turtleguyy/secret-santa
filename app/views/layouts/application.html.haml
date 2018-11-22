@@ -1,7 +1,8 @@
 !!!
 %html
   %head
-    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
     %title SecretSanta
     = csrf_meta_tags
     = csp_meta_tag
@@ -9,16 +10,22 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   %body
-    %p.notice= notice
-    %p.alert= alert
+    - if notice.present?
+      %p.notice= notice
+    
+    - if alert.present?
+      %p.alert= alert
 
     %header
       %h1=link_to 'Secret Santa', root_path
 
       - if user_signed_in?
         .user-controls
-          = link_to 'edit profile', edit_user_path(current_user)
-          = link_to 'log out', destroy_user_session_path, method: :delete
+          = link_to edit_user_path(current_user) do
+            = fa_icon 'user', text: 'Profile'
+          
+          = link_to destroy_user_session_path, method: :delete do
+            = fa_icon 'sign-out', text: 'Sign Out'
 
     %section= yield
   -# .christmas

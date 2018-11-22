@@ -11,12 +11,14 @@
 
 class Family < ApplicationRecord
 
-  attr_accessor :member
+  attr_accessor :member, :invitation_code
 
   belongs_to :user
 
   has_many :members, dependent: :destroy
   has_many :users, through: :members
+
+  validates :name, presence: true
 
   def assignment_for(user)
     members.find_by(user: user).assignment

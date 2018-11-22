@@ -1,11 +1,28 @@
+.breadcrumbs
+  = link_to dashboard_path, class: 'back' do
+    = fa_icon 'home', text: 'Home'
+  = fa_icon 'chevron-right'
+  Join
+
 %h1
-  Join the
+  The
   = @family.name
   Family
 
-= semantic_form_for @family, url: family_join_path(@family) do |f|
-  = f.inputs do
-    = f.input :member, label: 'Who are you?', as: :select, include_blank: false, collection: @family.unclaimed_members, hint: 'There is no way to change who are after joining, so be sure to choose the correct person.'
+- if @family.unclaimed_members.size > 0
+  = semantic_form_for @family, url: family_join_path(@family) do |f|
+    = f.inputs do
+      = f.input :member, label: 'Who are you?', as: :select, include_blank: false, collection: @family.unclaimed_members, hint: 'There is no way to change who are after joining, so be sure to choose the correct person.', input_html: { class: 'form-input' }
 
-  = f.actions do
-    = f.action :submit, label: 'Join the Family'
+      = f.input :invitation_code, label: 'Confirm Invitation Code', input_html: { class: 'form-input' }
+
+    = f.actions do
+      = f.action :submit, label: 'Join the Family'
+
+- else
+  %p
+    Sorry, it looks the family isn't quite ready to join yet.
+    - if @family.user.present?
+      You might consider constantly bothering
+      = @family.user.display_name
+      about it until they take care of it.

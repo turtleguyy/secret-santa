@@ -1,7 +1,9 @@
-%h1
-  Edit the
-  = @family.name
-  Family
+.breadcrumbs
+  = link_to dashboard_path, class: 'back' do
+    = fa_icon 'home', text: 'Home'
+  = fa_icon 'chevron-right'
+  Edit
 
-= link_to 'Back', dashboard_path
+%h1 Edit Family
+
 = render 'form', family: @family
